@@ -17,8 +17,6 @@
 
 print("=== Network Traffic Security Analyzer ===\n")
 
-print("=== Network Traffic Security Analyzer ===\n")
-
 # User input
 port = int(input("Enter the port number (e.g., 80, 22, 443, 3389): "))
 transfer_size = float(input("Enter the data transfer size in megabytes (MB): "))
