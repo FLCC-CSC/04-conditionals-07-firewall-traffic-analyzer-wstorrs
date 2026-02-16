@@ -34,6 +34,8 @@ elif (port == 22 or port == 3389) and size >= 100:
     risk = "HIGH RISK: Potential unauthorized remote access detected!"
 elif port == 443:
     risk = "LOW RISK: Secure encrypted transfer detected."
+if port >=80 and size == False:
+    risk = "MEDIUM RISK: Large encrypted data transfer detected."
 else:
     risk = "UNKNOWN: Unrecognized traffic pattern."
 
