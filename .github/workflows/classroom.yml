@@ -1,0 +1,83 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Test Case 01 [22]
+      id: test-case-01-22
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 6
+        setup-command: apt-get update && apt-get install -y curl && curl "https://gist.githubusercontent.com/johnghidiuflcc/2d1002e59364b1a6cda4931dddcf3dde/raw"
+          -o test_01.py
+    - name: Test Case 02 [80_99]
+      id: test-case-02-80_99
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 6
+        setup-command: apt-get update && apt-get install -y curl && curl "https://gist.githubusercontent.com/johnghidiuflcc/954f8d400fd78d3adb0f38e90b6d6b55/raw"
+          -o test_01.py
+    - name: Test Case 03 [80_100]
+      id: test-case-03-80_100
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 6
+        setup-command: apt-get update && apt-get install -y curl && curl "https://gist.githubusercontent.com/johnghidiuflcc/781289d4e98e9af4cf9f71cded445a2c/raw"
+          -o test_01.py
+    - name: Test Case 04 [80_101]
+      id: test-case-04-80_101
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 6
+        setup-command: apt-get update && apt-get install -y curl && curl "https://gist.githubusercontent.com/johnghidiuflcc/fb816a9fce86ac45f1c1aa9c15463f1c/raw"
+          -o test_01.py
+    - name: Test Case 05 [443_100]
+      id: test-case-05-443_100
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 6
+        setup-command: apt-get update && apt-get install -y curl && curl "https://gist.githubusercontent.com/johnghidiuflcc/1d9c0f371ce7b6ec34ae96f0e0eff306/raw"
+          -o test_01.py
+    - name: Test Case 06 [3389]
+      id: test-case-06-3389
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 6
+        setup-command: apt-get update && apt-get install -y curl && curl "https://gist.githubusercontent.com/johnghidiuflcc/b18b6de5abdb177c0fd8e1f4aeb9d538/raw"
+          -o test_01.py
+    - name: Test Case 07 [unknown]
+      id: test-case-07-unknown
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 4
+        setup-command: apt-get update && apt-get install -y curl && curl "https://gist.githubusercontent.com/johnghidiuflcc/049aa3c48fa4dfc2cc5c779dd20210e6/raw"
+          -o test_01.py
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST-CASE-01-22_RESULTS: "${{steps.test-case-01-22.outputs.result}}"
+        TEST-CASE-02-80_99_RESULTS: "${{steps.test-case-02-80_99.outputs.result}}"
+        TEST-CASE-03-80_100_RESULTS: "${{steps.test-case-03-80_100.outputs.result}}"
+        TEST-CASE-04-80_101_RESULTS: "${{steps.test-case-04-80_101.outputs.result}}"
+        TEST-CASE-05-443_100_RESULTS: "${{steps.test-case-05-443_100.outputs.result}}"
+        TEST-CASE-06-3389_RESULTS: "${{steps.test-case-06-3389.outputs.result}}"
+        TEST-CASE-07-UNKNOWN_RESULTS: "${{steps.test-case-07-unknown.outputs.result}}"
+      with:
+        runners: test-case-01-22,test-case-02-80_99,test-case-03-80_100,test-case-04-80_101,test-case-05-443_100,test-case-06-3389,test-case-07-unknown
